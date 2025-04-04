@@ -17,25 +17,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log("✅ Formulário encontrado!");
 
+    // Adiciona máscara de entrada para CPF
+    const cpfInput = document.getElementById("cpf");
+    cpfInput.addEventListener("input", function () {
+        let value = cpfInput.value.replace(/\D/g, "");
+        value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+        cpfInput.value = value.substring(0, 14);
+    });
+
     form.addEventListener("submit", function (e) {
         e.preventDefault(); // Impede envio automático
 
         console.log("🚀 Tentando enviar o formulário...");
 
         let nome = document.getElementById("nome").value.trim();
-        let cpfInput = document.getElementById("cpf");
         let creci = document.getElementById("creci").value.trim();
-
-        // Remove caracteres não numéricos do CPF
         let cpf = cpfInput.value.replace(/\D/g, "");
-
-        // Atualiza o valor do campo CPF no formulário
         cpfInput.value = cpf;
-
-        console.log("📌 Dados enviados:");
-        console.log("Nome:", nome);
-        console.log("CPF:", cpf); // Agora sem pontos e traço
-        console.log("CRECI:", creci);
 
         // Validações
         if (nome.length < 2) {
@@ -51,26 +49,37 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        console.log("✅ Formulário validado!");
-
-        // Desativa o botão para evitar múltiplos envios
         const submitButton = form.querySelector("button[type='submit']");
         submitButton.disabled = true;
         submitButton.textContent = "Enviando...";
 
-        // Simulação de um envio assíncrono (AJAX pode ser usado aqui)
         setTimeout(() => {
-            form.submit(); // Envia o formulário
-        }, 500); // Tempo curto para simular envio
+            form.submit();
+        }, 2000);
     });
 });
 
-// Função para preencher os campos ao editar um corretor
-function editarCorretor(id, nome, cpf, creci) {
-    document.getElementById("id").value = id;
-    document.getElementById("nome").value = nome;
-    document.getElementById("cpf").value = cpf;
-    document.getElementById("creci").value = creci;
 
-    console.log(`✏️ Editando corretor: ID=${id}, Nome=${nome}, CPF=${cpf}, CRECI=${creci}`);
+function editarCorretor(id, name, cpf, creci) {
+
+    document.getElementById('id').value = id;
+    document.getElementById('nome').value = name;
+    document.getElementById('cpf').value = cpf;
+    document.getElementById('creci').value = creci;
+
+    const submitButton = document.getElementById('submitBtn');
+    submitButton.innerText = 'Salvar';
+    submitButton.classList.remove('btn-success');
+    submitButton.classList.add('btn-primary');
 }
+document.addEventListener("DOMContentLoaded", function () {
+    const alertMessage = document.getElementById("alertMessage");
+    if (alertMessage) {
+        setTimeout(() => {
+            alertMessage.style.opacity = "0"; // Gradualmente desaparece
+            setTimeout(() => {
+                alertMessage.style.display = "none"; // Remove da tela
+            }, 500); // Tempo para a transição (0.5s)
+        }, 2000); // 2000ms = 2 segundos
+    }
+});

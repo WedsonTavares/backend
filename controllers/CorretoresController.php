@@ -13,7 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Remove caracteres não numéricos do CPF
     $cpf = preg_replace('/\D/', '', $cpf);
 
-    if (strlen($cpf) == 11 && strlen($creci) >= 2 && strlen($nome) >= 2) {
+    // Validação de CPF
+    if (!$corretor->validarCPF($cpf)) {
+        header("Location: ../public/index.php?msg=Erro: CPF inválido!");
+        exit;
+    }
+
+    if (strlen($creci) >= 2 && strlen($nome) >= 2) {
         if ($id) {
             $corretor->editar($id, $nome, $cpf, $creci);
             header("Location: ../public/index.php?msg=Corretor atualizado com sucesso!");

@@ -3,18 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Corretores</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
     <link rel="stylesheet" href="style.css">  
+    <title>Cadastro de Corretores</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Cadastro de Corretores</h1>
+    <div class="container mt-5">
         <?php include '../views/form.php'; ?>
         <?php include '../views/table.php'; ?>
-    </div>
-    <?php if (isset($_GET['msg'])): ?>
-        <p><?= htmlspecialchars($_GET['msg']) ?></p>
+
+        <?php if (isset($_GET['msg'])): ?>
+            <div id="alertMessage" class="alert">
+                <?= htmlspecialchars($_GET['msg']) ?>
+            </div>
         <?php endif; ?>
-        <script src="script.js" defer></script>  
+    </div>
+    <script src="script.js" defer></script>  
 </body>
 </html>
